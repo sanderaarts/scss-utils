@@ -1,0 +1,45 @@
+// https://github.com/sanderaarts/scss-utils/_toggled-display.scss
+
+
+// toggled-display
+//
+// Define basic toggled display (expand/collapse).
+// Assumes the following DOM (elements are all siblings):
+//
+// <input id="%ID%" class="{$type}-toggle" type="checkbox">
+// <label for="%ID%">%TOGGLE_LABEL%</label>
+// <%TAGNAME% class="{$type}-body">...</%TAGNAME%>
+//
+// @param [$class: expand]  Class name (prefix). Default: 'expand'.
+@mixin toggled-display($class: expand) {
+    input.#{$class}-toggle {
+        //@include element-invisible;
+        display: none;
+
+        + label {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+    }
+
+    .#{$class}-body {
+        display: none;
+
+        input.#{$class}-toggle:checked ~ & {
+            display: block;
+        }
+    }
+}
+
+// toggled-flyout
+//
+// Define basic toggled flyout. See toggled-display.
+// @param [$class: expand]  Class name (prefix). Default: 'flyout'.
+@mixin toggled-flyout($class: flyout) {
+    @include toggled-display($class);
+
+    input.#{$class}-toggle:checked ~ .#{$class}-body {
+        position: absolute;
+        z-index: 1;
+    }
+}

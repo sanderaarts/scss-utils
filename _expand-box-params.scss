@@ -1,0 +1,19 @@
+// https://github.com/sanderaarts/scss-utils/_expand-box-params.scss
+
+
+// expand-box-params
+//
+// Expand short-hand box parameters. E.g. (1px 2px) -> (1px 2px 1px 2px)
+// @param $args  List with 1 to 4 values to be expanded.
+@function expand-box-params($args) {
+    @if length($args) == 4 {
+        @return $args;
+    } @else if length($args) == 1 {
+        $one: nth($args, 1);
+        @return ($one $one $one $one);
+    } @else if length($args) == 2 {
+        @return join($args, $args);
+    } @else if length($args) == 3 {
+        @return append($args, nth($args, 2));
+    }
+}

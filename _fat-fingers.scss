@@ -1,0 +1,40 @@
+// https://github.com/sanderaarts/scss-utils/_fat-fingers.scss
+
+
+@import '_expand-box-params.scss';
+
+// fat-fingers
+//
+// Enlarge area associated with element.
+// @param $pseudo             Pseudo element, either before or after.
+// @param [$enlarge: null]    List of 1 to 4 values, specifying the enlargement. If ommitted, enlargement will be reset.
+// @param [$cursor: pointer]  Cursor value. Default: pointer.
+@mixin fat-fingers($pseudo, $enlarge: null, $cursor: pointer) {
+    @if $enlarge == null {
+        // Reset:
+        position: static;
+        &:#{$pseudo} {
+            content:  none;
+            position: static;
+            top:      auto;
+            right:    auto;
+            bottom:   auto;
+            left:     auto;
+            cursor:   auto;
+        }
+    } @else {
+        // Set:
+        $enlarge: expand-box-params($enlarge);
+
+        position: relative;
+        &:#{$pseudo} {
+            content:  '';
+            position: absolute;
+            top:      -#{nth($enlarge, 1)};
+            right:    -#{nth($enlarge, 2)};
+            bottom:   -#{nth($enlarge, 3)};
+            left:     -#{nth($enlarge, 4)};
+            cursor:   $cursor;
+        }
+    }
+}
