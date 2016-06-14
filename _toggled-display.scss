@@ -24,10 +24,10 @@
 
     .#{$class}-body {
         display: none;
+    }
 
-        input.#{$class}-toggle:checked ~ & {
-            display: block;
-        }
+    input.#{$class}-toggle:checked ~ .#{$class}-body {
+        display: block;
     }
 }
 
